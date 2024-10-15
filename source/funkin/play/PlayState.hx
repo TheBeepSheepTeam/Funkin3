@@ -2487,6 +2487,7 @@ class PlayState extends MusicBeatSubState
         continue;
       }
 
+      // TODO: Are offsets being accounted for in the correct direction?
       var hitWindowCenter = note.strumTime + Conductor.instance.inputOffset;
       var hitWindowStart = hitWindowCenter - Constants.HIT_WINDOW_MS;
       var hitWindowEnd = hitWindowCenter + Constants.HIT_WINDOW_MS;
