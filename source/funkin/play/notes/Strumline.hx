@@ -496,7 +496,7 @@ class Strumline extends FlxSpriteGroup
         holdConfirm(holdNote.noteDirection);
         holdNote.visible = true;
 
-        holdNote.sustainLength = (holdNote.strumTime + holdNote.fullSustainLength) - conductorInUse.songPosition - conductorInUse.inputOffset;
+        holdNote.sustainLength = (holdNote.strumTime + holdNote.fullSustainLength) - conductorInUse.songPosition + conductorInUse.inputOffset;
 
         if (holdNote.sustainLength <= 10)
         {
