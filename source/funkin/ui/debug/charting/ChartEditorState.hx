@@ -2709,6 +2709,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
     playbarHeadLayout.playbarHead.styleString = 'padding-left: 0px; padding-right: 0px; border-left: 0px; border-right: 0px;';
     playbarHeadLayout.playbarHead.min = 0;
 
+
     playbarHeadLayout.playbarHead.onDragStart = function(_:DragEvent) {
       playbarHeadDragging = true;
 
@@ -4162,6 +4163,12 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
         else if (measureTicks != null && FlxG.mouse.overlaps(measureTicks) && !isCursorOverHaxeUI)
         {
           gridPlayheadScrollAreaPressed = true;
+          // Stop audio playback while dragging on the grid playhead.
+          if (audioInstTrack != null && audioInstTrack.isPlaying)
+          {
+            playbarHeadDraggingWasPlaying = true;
+            stopAudioPlayback();
+          }
         }
         else if (notePreview != null && FlxG.mouse.overlaps(notePreview) && !isCursorOverHaxeUI)
         {
@@ -4184,6 +4191,14 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
       if (gridPlayheadScrollAreaPressed && FlxG.mouse.released)
       {
         gridPlayheadScrollAreaPressed = false;
+        // If we were dragging the playhead while the song was playing, resume playing.
+        if (playbarHeadDraggingWasPlaying)
+        {
+          playbarHeadDraggingWasPlaying = false;
+
+          // Disabled code to resume song playback on drag.
+          startAudioPlayback();
+        }
       }
 
       if (notePreviewScrollAreaStartPos != null && FlxG.mouse.released)
@@ -5863,6 +5878,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
   {
     if (audioInstTrack != null)
     {
+      if (playbarHeadDragging || gridPlayheadScrollAreaPressed) return;
       audioInstTrack.play(false, audioInstTrack.time);
       audioVocalTrackGroup.play(false, audioInstTrack.time);
     }
@@ -6314,6 +6330,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
     }
     else
     {
+      if (playbarHeadDragging || gridPlayheadScrollAreaPressed) return;
       // Play
       startAudioPlayback();
       stopWelcomeMusic();
