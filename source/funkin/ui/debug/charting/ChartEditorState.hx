@@ -6272,6 +6272,7 @@ class ChartEditorState extends UIState // UIState derives from MusicBeatState
       // Update the songPosition in the Conductor.
       Conductor.instance.update(audioInstTrack.time);
       audioVocalTrackGroup.time = audioInstTrack.time;
+      oldTime = audioInstTrack.time;
     }
 
     // We need to update the note sprites because we changed the scroll position.
