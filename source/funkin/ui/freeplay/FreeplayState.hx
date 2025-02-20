@@ -1675,7 +1675,7 @@ class FreeplayState extends MusicBeatSubState
       grpCapsules.members[curSelected].onConfirm();
     }
 
-    if (FlxG.keys.pressed.R && !busy)
+    if (intendedScore > 0 && controls.FREEPLAY_RESULTS_SCREEN && !busy)
     {
       busy = true;
       moveToResultsScreen();
