@@ -2056,7 +2056,7 @@ class FreeplayState extends MusicBeatSubState
       intendedScore = 0;
       intendedCompletion = 0.0;
       rememberedSongId = null;
-      rememberedDifficulty = Constants.DEFAULT_DIFFICULTY;
+      rememberedDifficulty = currentDifficulty ?? Constants.DEFAULT_DIFFICULTY;
       albumRoll.albumId = null;
     }
 
